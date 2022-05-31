@@ -2,9 +2,9 @@
 
   vars:
     newuser: Tux
-  become: true #do as sudo
+  become: true ###do as sudo
   tasks:
-    - name: start gracefully #i do this to make sure that at least one task is capable of running
+    - name: start gracefully ###i do this to make sure that at least one task is capable of running
       debug:
         msg: "playbook begins"
 
@@ -29,7 +29,7 @@
       when: user_exists is succeeded    
 
 
-#n00b friendly guide
-#run this playbook with
-#ansible-playbook -i inventory newuser-playbook.yaml
-#assuming you
+###n00b friendly guide
+###run this playbook with
+###ansible-playbook -i inventory newuser-playbook.yaml
+###assuming you have an inventory file named 'inventory' in current directory
