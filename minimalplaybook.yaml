@@ -1,0 +1,15 @@
+- hosts: all
+
+  vars:
+    newuser: Tux
+  become: true ###do as sudo
+  tasks:
+    - name: Test Task on Test playbook ###i do this to make sure that at least one task is capable of running
+      debug:
+        msg: "Hello World!"
+
+
+###n00b friendly guide
+###run this playbook with
+###ansible-playbook -i inventory newuser-playbook.yaml
+###assuming you have an inventory file named 'inventory' in current directorys
