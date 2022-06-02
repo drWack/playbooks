@@ -1,8 +1,8 @@
 - hosts: all
-
-  vars:
-    newuser: Tux
   become: true ###do as sudo
+  vars:
+    newuser:
+  
   tasks:
     - name: start gracefully ###i do this to make sure that at least one task is capable of running
       debug:

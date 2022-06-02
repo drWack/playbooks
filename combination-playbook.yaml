@@ -1,0 +1,23 @@
+
+- hosts: all
+
+  vars_prompt:
+    - name: publickey
+      prompt: what is the public ssh key as a string?
+      private: no
+    - name: username
+      prompt: what do you want the new user to be named?
+      private: no 
+  tasks:
+    - set_fact:
+        userpass: "{{ username }}"
+    - set_fact:
+        userkey: "{{ publickey }}"
+- import_playbook: newuser-playbook.yaml
+  vars:
+    newuser: '{{ hostvars[inventory_hostname]["userpass"] }}'
+- import_playbook: ssh-keygen-playbook.yaml
+  vars:
+    newuser: '{{ hostvars[inventory_hostname]["userpass"] }}'
+    publickey: '{{ hostvars[inventory_hostname]["userkey"] }}'
+

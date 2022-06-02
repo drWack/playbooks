@@ -4,39 +4,33 @@
 
 - hosts: all
 
-  vars_prompt:
-
-    - name: newuser
-      prompt: What is the User you would like to create?
-      private: no
-
-    - name: publickey
-      prompt: what is the public ssh key as a string?
-      private: yes
+  vars:
+    newuser: replace
+    publickey: replace
   become: true
   tasks:
-    - name: check if user already exists
-      command: id -u {{ newuser }}
-      register: user_exists
-      ignore_errors: true
-
-    - name: create user named {{ newuser }}
-      ansible.builtin.user:
-        name: "{{ newuser }}"
-      when: user_exists is failed
-
-    - name: new user created 
-      debug:
-        msg: the user named {{ newuser }} has been created
-      when: user_exists is failed
-
-    - name: show a message if user already exists
-      debug:
-        msg: the user already exists
-      when: user_exists is succeeded
+#    - name: check if user already exists
+#      command: id -u {{ newuser }}
+#      register: user_exists
+#      ignore_errors: true
+#
+#    - name: create user named {{ newuser }}
+#      ansible.builtin.user:
+#        name: "{{ newuser }}"
+#      when: user_exists is failed
+#
+#    - name: new user created 
+#      debug:
+#        msg: the user named {{ newuser }} has been created
+#      when: user_exists is failed
+#
+#    - name: show a message if user already exists
+#      debug:
+#        msg: the user already exists
+#      when: user_exists is succeeded
 
     - name: store publickey in newuser.
       ansible.builtin.lineinfile:
         path: /home/{{ newuser }}/.ssh/authorized_keys
-        line: "\n Created by Ansible Playbook \n{{ publickey }}\n"
+        line: "\n #Created by Ansible Playbook \n{{ publickey }}\n"
         create: true
